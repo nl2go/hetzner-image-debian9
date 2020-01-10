@@ -1,0 +1,71 @@
+---
+- name: Download intel driver for network adapter
+  get_url:
+    url: "{{ intel_driver_download_location }}"
+    dest: /root/{{ intel_driver_module }}-{{ intel_driver_version }}.tar.gz
+    mode: '0440'
+
+- name: Extract network adapter driver
+  unarchive:
+    src: /root/{{ intel_driver_module }}-{{ intel_driver_version }}.tar.gz
+    dest: /root/
+    remote_src: yes
+
+- name: Run command to get kernel version
+  command: "uname -r"
+  register: uname_output
+
+- name: Set kernel version variable
+  set_fact:
+    kernel_version: "{{ uname_output.stdout }}"
+
+- name: Install kernel headers
+  apt:
+    name: "linux-headers-{{ kernel_version }}"
+    state: present
+
+- name: Compile network adapter driver
+  shell: make install
+  args:
+    chdir: /root/{{ intel_driver_module }}-{{ intel_driver_version }}/src/
+
+- name: Load network adapter driver module
+  shell: modprobe {{ intel_driver_module }}
+
+- name: Add network card driver module to /etc/modules
+  lineinfile:
+    dest: /etc/modules
+    regexp: '^{{ intel_driver_module }}'
+    line: "{{ intel_driver_module }}"
+
+- name: Rename network device
+  shell: nohup sh -c "ip link set eth0 down && ip link set eth0 name eno1 && ip link set eno1 up"
+
+- name: Copy over grub config files with enabled predictable network devices
+  copy:
+    src: files/grub
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Update grub config
+  shell: update-grub
+
+- name: Run command to get package timestamp
+  command: "date +%Y%m%d%H%M%S"
+  register: date_output
+
+- name: Set package timestamp name
+  set_fact:
+    package_timestamp: "{{ date_output.stdout }}"
+
+- name: Create directory for image
+  file:
+    path: /osimage
+    state: directory
+
+- name: Create OS image package
+  shell: tar zcvf Debian-911-stretch-64-custom-{{ package_timestamp }}.tar.gz /bin /boot /etc /home /lib /lib64 /media /mnt /opt /root /run /sbin /srv /tmp /usr /var
+  args:
+    chdir: /osimage
