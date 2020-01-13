@@ -2,6 +2,7 @@ language: generic
 
 install:
   - sudo echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" | sudo tee -a /etc/apt/sources.list
+  - wget http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc -O- | sudo apt-key add -
   - wget http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
   - sudo apt-get update
   - sudo apt-get -y install linux-headers-$(uname -r)
