@@ -1,4 +1,4 @@
-language: ruby
+language: generic
 
 install:
   - sudo echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" | sudo tee -a /etc/apt/sources.list
