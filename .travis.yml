@@ -12,6 +12,7 @@ install:
   - sudo dpkg -i vagrant_2.2.6_i686.deb
 
 script:
-  - sudo /usr/bin/vagrant up
+  - sudo ln -s /usr/bin/ruby /opt/vagrant/embedded/bin/ruby
+  - /usr/bin/vagrant up
   - ls
 
