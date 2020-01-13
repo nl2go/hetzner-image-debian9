@@ -1,5 +1,5 @@
 ---
-hetzner_debian9_image_version: 1.0.0
+hetzner_debian9_image_version: 1.1.0
 intel_driver_module: e1000e
 intel_driver_version: 3.6.0
 intel_driver_download_location: https://downloadmirror.intel.com/15817/eng/{{ intel_driver_module }}-{{ intel_driver_version }}.tar.gz
