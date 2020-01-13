@@ -5,7 +5,7 @@ install:
   - wget http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
   - sudo apt-get update
   - sudo apt-get -y install linux-headers-$(uname -r)
-  - sudo apt-get -y install virtualbox-5.0
+  - sudo apt-get -y install virtualbox-4.3
   - VBoxManage -v
   - wget https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_i686.deb
   - sudo dpkg -i vagrant_2.2.6_i686.deb
