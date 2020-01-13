@@ -12,7 +12,6 @@ install:
   - sudo dpkg -i vagrant_2.2.6_i686.deb
 
 script:
-  - /usr/bin/which vagrant
-  - /usr/bin/vagrant up
+  - sudo /usr/bin/vagrant up
   - ls
 
