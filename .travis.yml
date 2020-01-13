@@ -8,10 +8,10 @@ install:
   - sudo apt-get -y install linux-headers-$(uname -r)
   - sudo apt-get -y install virtualbox-5.2
   - VBoxManage -v
-  - wget https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_i686.deb
-  - sudo dpkg -i vagrant_2.2.6_i686.deb
+  - wget https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
+  - sudo dpkg -i vagrant_2.2.6_x86_64.deb
 
 script:
-  - /opt/vagrant/bin/vagrant up
+  - vagrant up
   - ls
 
