@@ -6,4 +6,6 @@ Vagrant.configure("2") do |config|
     ansible.verbose = "vv"
     ansible.playbook = "playbooks/vagrant.yml"
   end
+
+  config.vm.synced_folder '.', '/vagrant', disabled: true
 end
