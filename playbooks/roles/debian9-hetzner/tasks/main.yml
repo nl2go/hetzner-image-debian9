@@ -69,3 +69,9 @@
   shell: tar zcvf Debian-911-stretch-64-custom-{{ package_timestamp }}.tar.gz /bin /boot /etc /home /lib /lib64 /media /mnt /opt /root /run /sbin /srv /tmp /usr /var
   args:
     chdir: /osimage
+
+- name: Move image file to /vagrant directory
+  copy:
+    src: /osimage/Debian-911-stretch-64-custom-{{ package_timestamp }}.tar.gz
+    dest: /vagrant/Debian-911-stretch-64-custom-{{ package_timestamp }}.tar.gz
+    remote_src: True
