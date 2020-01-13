@@ -7,5 +7,8 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "playbooks/vagrant.yml"
   end
 
-  config.vm.synced_folder '.', '/vagrant', disabled: true
+  config.ssh.username = 'travis'
+  config.ssh.password = 'travis'
+
+  #config.vm.synced_folder '.', '/vagrant', disabled: true
 end
